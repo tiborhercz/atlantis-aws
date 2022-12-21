@@ -1,1 +1,1 @@
-# AWS ECS Atlantis Terraform repository
+# Terraform AWS ECS cluster for Atlantis
