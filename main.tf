@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "eu-west-1"
-}
-
 locals {
   default_container_definitions = jsonencode([
     {
