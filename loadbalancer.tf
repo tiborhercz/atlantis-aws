@@ -3,14 +3,14 @@ resource "aws_lb" "atlantis" {
 
   load_balancer_type = "application"
 
-  subnets         = module.vpc.private_subnets
+  subnets         = var.private_subnets
   security_groups = [aws_security_group.atlantis_security_group.id]
 }
 
 resource "aws_lb_target_group" "atlantis" {
   name = var.name
 
-  vpc_id   = module.vpc.vpc_id
+  vpc_id   = var.vpc_id
   port     = 80
   protocol = "HTTP"
 
@@ -36,4 +36,28 @@ resource "aws_lb_listener" "atlantis" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.atlantis.arn
   }
+}
+
+
+resource "aws_security_group" "atlantis_security_group" {
+  name   = "atlantis_security_group"
+  vpc_id = var.vpc_id
+}
+
+resource "aws_security_group_rule" "atlantis_ingress" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.atlantis_security_group.id
+}
+
+resource "aws_security_group_rule" "atlantis_egress" {
+  type              = "egress"
+  to_port           = 0
+  from_port         = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.atlantis_security_group.id
 }
