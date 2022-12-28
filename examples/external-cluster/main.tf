@@ -23,7 +23,7 @@ module "vpc" {
 resource "aws_kms_key" "atlantis" {
   count = var.logs_kms_key_id == "" ? 1 : 0
 
-  description             = "${var.name}-ecs-cluster"
+  description = "${var.name}-ecs-cluster"
 }
 
 resource "aws_ecs_cluster" "atlantis" {
