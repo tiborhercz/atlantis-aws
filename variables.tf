@@ -19,14 +19,13 @@ variable "ecs_task_memory" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "VPC ID"
-  type        = string
-}
+variable "network_configuration" {
+  description = "The network configuration for the VPC"
 
-variable "private_subnets" {
-  description = "Private subnets"
-  type        = list(string)
+  type = object({
+    vpc_id          = string,
+    private_subnets = list(string),
+  })
 }
 
 variable "container_definitions" {

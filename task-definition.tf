@@ -55,7 +55,9 @@ resource "aws_cloudwatch_log_group" "atlantis_container" {
 
   name = "${var.name}-container-logs"
 
-  kms_key_id = var.cloudwatch_logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.cloudwatch_logs_kms_key_id
+  kms_key_id = var.cloudwatch_logs_kms_key_id == "" ? aws_kms_key.atlantis[0].arn : var.cloudwatch_logs_kms_key_id
+
+  depends_on = [aws_kms_key.atlantis]
 }
 
 data "aws_iam_policy_document" "ecs_tasks" {

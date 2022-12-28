@@ -1,13 +1,13 @@
 resource "aws_lb" "atlantis" {
   name               = var.name
   load_balancer_type = "application"
-  subnets            = var.private_subnets
+  subnets            = var.network_configuration.private_subnets
   security_groups    = [aws_security_group.atlantis_security_group.id]
 }
 
 resource "aws_lb_target_group" "atlantis" {
   name        = var.name
-  vpc_id      = var.vpc_id
+  vpc_id      = var.network_configuration.vpc_id
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "atlantis" {
 
 resource "aws_security_group" "atlantis_security_group" {
   name   = "atlantis_security_group"
-  vpc_id = var.vpc_id
+  vpc_id = var.network_configuration.vpc_id
 }
 
 resource "aws_security_group_rule" "atlantis_ingress" {

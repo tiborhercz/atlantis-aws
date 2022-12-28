@@ -1,3 +1,6 @@
+data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
+
 resource "aws_ecs_cluster_capacity_providers" "atlantis" {
   cluster_name = var.create_ecs_cluster ? aws_ecs_cluster.atlantis[0].name : var.ecs_cluster_name
 
@@ -18,7 +21,7 @@ resource "aws_ecs_service" "atlantis" {
   }
 
   network_configuration {
-    subnets         = var.private_subnets
+    subnets         = var.network_configuration.private_subnets
     security_groups = [aws_security_group.atlantis_security_group.id]
   }
 }
