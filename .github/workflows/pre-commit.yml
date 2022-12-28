@@ -1,3 +1,7 @@
+name: Pre-commit
+
+on: [ push, pull_request ]
+
 jobs:
   linting:
     runs-on: ubuntu-latest
