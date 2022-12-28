@@ -1,4 +1,4 @@
-# AWS ECS Atlantis fully working cluster example
+# AWS ECS Atlantis cluster example
 
 The Terraform files in this directory create a fully functional Atlantis ECS cluster.
 
