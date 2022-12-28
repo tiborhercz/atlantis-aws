@@ -52,3 +52,15 @@ variable "ecs_cluster_id" {
   type        = string
   default     = ""
 }
+
+variable "ecs_task_definition_role_arn" {
+  description = "IAM role ARN used by the ECS task definition. (Currently) Both the execution role and task role are using the same role."
+  type        = string
+  default     = ""
+}
+
+variable "container_cloudwatch_log_group_name" {
+  description = "Cloudwatch log group name used by the container definition"
+  type        = string
+  default     = ""
+}
