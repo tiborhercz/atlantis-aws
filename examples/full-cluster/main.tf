@@ -23,9 +23,9 @@ module "vpc" {
 module "atlantis" {
   source = "../../"
 
-  name                       = "atlantis"
-  ecs_task_cpu               = "1024"
-  ecs_task_memory            = "2048"
+  name            = "atlantis"
+  ecs_task_cpu    = "1024"
+  ecs_task_memory = "2048"
 
   network_configuration = {
     vpc_id          = module.vpc.vpc_id

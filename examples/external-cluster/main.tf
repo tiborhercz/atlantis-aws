@@ -65,9 +65,6 @@ module "atlantis" {
   ecs_task_memory            = "2048"
   cloudwatch_logs_kms_key_id = aws_kms_key.atlantis.id
 
-  vpc_id          = module.vpc.vpc_id
-  private_subnets = module.vpc.private_subnets
-
   create_ecs_cluster = false
   ecs_cluster_name   = aws_ecs_cluster.atlantis.name
   ecs_cluster_id     = aws_ecs_cluster.atlantis.id

@@ -24,7 +24,7 @@ resource "aws_kms_key" "atlantis" {
   count = var.cloudwatch_logs_kms_key_id == "" ? 1 : 0
 
   description = "${var.name}-ecs-cluster"
-  policy = data.aws_iam_policy_document.kms_key_policy.json
+  policy      = data.aws_iam_policy_document.kms_key_policy.json
 }
 
 resource "aws_kms_alias" "a" {
@@ -62,8 +62,8 @@ data "aws_iam_policy_document" "kms_key_policy" {
     }
     resources = ["*"]
     condition {
-      test     = "ForAnyValue:ArnEquals"
-      values   = [
+      test = "ForAnyValue:ArnEquals"
+      values = [
         "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:*",
       ]
       variable = "kms:EncryptionContext:aws:logs:arn"
