@@ -3,7 +3,7 @@ variable "name" {
   type        = string
 }
 
-variable "logs_kms_key_id" {
+variable "cloudwatch_logs_kms_key_id" {
   description = "KMS key ID for CloudWatch Logs encryption. If not set a KMS key will be created and used."
   type        = string
   default     = ""

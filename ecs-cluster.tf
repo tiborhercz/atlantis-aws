@@ -2,10 +2,9 @@ resource "aws_ecs_cluster" "atlantis" {
   count = var.create_ecs_cluster ? 1 : 0
 
   name = var.name
-
   configuration {
     execute_command_configuration {
-      kms_key_id = var.logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.logs_kms_key_id
+      kms_key_id = var.cloudwatch_logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.cloudwatch_logs_kms_key_id
       logging    = "OVERRIDE"
 
       log_configuration {
@@ -22,7 +21,7 @@ resource "aws_ecs_cluster" "atlantis" {
 }
 
 resource "aws_kms_key" "atlantis" {
-  count = var.logs_kms_key_id == "" ? 1 : 0
+  count = var.cloudwatch_logs_kms_key_id == "" ? 1 : 0
 
   description = "${var.name}-ecs-cluster"
 }
@@ -30,7 +29,6 @@ resource "aws_kms_key" "atlantis" {
 resource "aws_cloudwatch_log_group" "atlantis" {
   count = var.create_ecs_cluster ? 1 : 0
 
-  name = "${var.name}-ecs-logs"
-
-  kms_key_id = var.logs_kms_key_id
+  name       = "${var.name}-ecs-logs"
+  kms_key_id = var.cloudwatch_logs_kms_key_id
 }

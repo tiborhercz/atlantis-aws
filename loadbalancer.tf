@@ -1,21 +1,16 @@
 resource "aws_lb" "atlantis" {
-  name = var.name
-
+  name               = var.name
   load_balancer_type = "application"
-
-  subnets         = var.private_subnets
-  security_groups = [aws_security_group.atlantis_security_group.id]
+  subnets            = var.private_subnets
+  security_groups    = [aws_security_group.atlantis_security_group.id]
 }
 
 resource "aws_lb_target_group" "atlantis" {
-  name = var.name
-
-  vpc_id   = var.vpc_id
-  port     = 80
-  protocol = "HTTP"
-
+  name        = var.name
+  vpc_id      = var.vpc_id
+  port        = 80
+  protocol    = "HTTP"
   target_type = "ip"
-
   health_check {
     path = "/healthz"
   }

@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "atlantis" {
 
   runtime_platform {
     operating_system_family = "LINUX"
-    cpu_architecture        = "X86_64"
+    cpu_architecture        = "ARM64"
   }
 }
 
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_log_group" "atlantis_container" {
 
   name = "${var.name}-container-logs"
 
-  kms_key_id = var.logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.logs_kms_key_id
+  kms_key_id = var.cloudwatch_logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.cloudwatch_logs_kms_key_id
 }
 
 data "aws_iam_policy_document" "ecs_tasks" {

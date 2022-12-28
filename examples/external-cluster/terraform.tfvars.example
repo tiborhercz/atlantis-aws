@@ -1,5 +1,5 @@
 name = "atlantis"
-logs_kms_key_id = ""
+cloudwatch_logs_kms_key_id = ""
 ecs_task_cpu = "1024"
 ecs_task_memory = "2048"
 

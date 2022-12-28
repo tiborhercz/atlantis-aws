@@ -21,7 +21,7 @@ module "vpc" {
 }
 
 resource "aws_kms_key" "atlantis" {
-  count = var.logs_kms_key_id == "" ? 1 : 0
+  count = var.cloudwatch_logs_kms_key_id == "" ? 1 : 0
 
   description = "${var.name}-ecs-cluster"
 }
@@ -31,7 +31,7 @@ resource "aws_ecs_cluster" "atlantis" {
 
   configuration {
     execute_command_configuration {
-      kms_key_id = var.logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.logs_kms_key_id
+      kms_key_id = var.cloudwatch_logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.cloudwatch_logs_kms_key_id
       logging    = "OVERRIDE"
 
       log_configuration {
@@ -50,22 +50,22 @@ resource "aws_ecs_cluster" "atlantis" {
 resource "aws_cloudwatch_log_group" "atlantis" {
   name = "${var.name}-ecs-logs"
 
-  kms_key_id = var.logs_kms_key_id
+  kms_key_id = var.cloudwatch_logs_kms_key_id
 }
 
 resource "aws_cloudwatch_log_group" "atlantis_container" {
   name = "${var.name}-container-logs"
 
-  kms_key_id = var.logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.logs_kms_key_id
+  kms_key_id = var.cloudwatch_logs_kms_key_id == "" ? aws_kms_key.atlantis[0].id : var.cloudwatch_logs_kms_key_id
 }
 
 module "atlantis" {
   source = "../../"
 
-  name            = var.name
-  ecs_task_cpu    = var.ecs_task_cpu
-  ecs_task_memory = var.ecs_task_memory
-  logs_kms_key_id = var.logs_kms_key_id
+  name                       = var.name
+  ecs_task_cpu               = var.ecs_task_cpu
+  ecs_task_memory            = var.ecs_task_memory
+  cloudwatch_logs_kms_key_id = var.cloudwatch_logs_kms_key_id
 
   vpc_id          = module.vpc.vpc_id
   private_subnets = module.vpc.private_subnets

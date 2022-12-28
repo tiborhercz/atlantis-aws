@@ -23,10 +23,10 @@ module "vpc" {
 module "atlantis" {
   source = "../../"
 
-  name            = var.name
-  ecs_task_cpu    = var.ecs_task_cpu
-  ecs_task_memory = var.ecs_task_memory
-  logs_kms_key_id = var.logs_kms_key_id
+  name                       = var.name
+  ecs_task_cpu               = var.ecs_task_cpu
+  ecs_task_memory            = var.ecs_task_memory
+  cloudwatch_logs_kms_key_id = var.cloudwatch_logs_kms_key_id
 
   vpc_id          = module.vpc.vpc_id
   private_subnets = module.vpc.private_subnets

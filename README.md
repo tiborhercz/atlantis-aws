@@ -41,6 +41,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_cloudwatch_logs_kms_key_id"></a> [cloudwatch\_logs\_kms\_key\_id](#input\_cloudwatch\_logs\_kms\_key\_id) | KMS key ID for CloudWatch Logs encryption. If not set a KMS key will be created and used. | `string` | `""` | no |
 | <a name="input_container_cloudwatch_log_group_name"></a> [container\_cloudwatch\_log\_group\_name](#input\_container\_cloudwatch\_log\_group\_name) | Cloudwatch log group name used by the container definition | `string` | `""` | no |
 | <a name="input_container_definitions"></a> [container\_definitions](#input\_container\_definitions) | A list of valid JSON container definitions. By default, a standard definition is used. | `string` | `""` | no |
 | <a name="input_create_ecs_cluster"></a> [create\_ecs\_cluster](#input\_create\_ecs\_cluster) | Set whether an ECS cluster should be created | `bool` | `true` | no |
@@ -49,7 +50,6 @@ No modules.
 | <a name="input_ecs_task_cpu"></a> [ecs\_task\_cpu](#input\_ecs\_task\_cpu) | CPU value for the ECS task | `string` | n/a | yes |
 | <a name="input_ecs_task_definition_role_arn"></a> [ecs\_task\_definition\_role\_arn](#input\_ecs\_task\_definition\_role\_arn) | IAM role ARN used by the ECS task definition. (Currently) Both the execution role and task role are using the same role. | `string` | `""` | no |
 | <a name="input_ecs_task_memory"></a> [ecs\_task\_memory](#input\_ecs\_task\_memory) | Memory value for the ECS task | `string` | n/a | yes |
-| <a name="input_logs_kms_key_id"></a> [logs\_kms\_key\_id](#input\_logs\_kms\_key\_id) | KMS key ID for CloudWatch Logs encryption. If not set a KMS key will be created and used. | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Used to name the resources | `string` | n/a | yes |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | Private subnets | `list(string)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID | `string` | n/a | yes |
