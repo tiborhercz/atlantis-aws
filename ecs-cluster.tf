@@ -25,7 +25,6 @@ resource "aws_kms_key" "atlantis" {
   count = var.logs_kms_key_id == "" ? 1 : 0
 
   description             = "${var.name}-ecs-cluster"
-  deletion_window_in_days = 7
 }
 
 resource "aws_cloudwatch_log_group" "atlantis" {
