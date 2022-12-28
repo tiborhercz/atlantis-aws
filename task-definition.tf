@@ -3,9 +3,9 @@ locals {
 
   default_container_definitions = local.default_container_definitions_used == true ? jsonencode([
     {
-      name         = var.name
-      image        = "ghcr.io/runatlantis/atlantis:v0.21.0"
-      essential    = true
+      name      = var.name
+      image     = "ghcr.io/runatlantis/atlantis:v0.21.0"
+      essential = true
       portMappings = [
         {
           containerPort = 80
@@ -14,7 +14,7 @@ locals {
       ]
       logConfiguration = {
         logDriver = "awslogs"
-        options   = {
+        options = {
           "awslogs-group"         = aws_cloudwatch_log_group.atlantis_container[0].name
           "awslogs-region"        = "eu-west-1"
           "awslogs-stream-prefix" = "ecs"
@@ -27,7 +27,7 @@ locals {
 }
 
 resource "aws_ecs_task_definition" "atlantis" {
-  family                   = "${var.name}-task"
+  family = "${var.name}-task"
   # TODO: Make a separate role for the execution_role_arn
   execution_role_arn       = local.ecs_task_definition_role_arn
   task_role_arn            = local.ecs_task_definition_role_arn
@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "ecs_tasks" {
     effect = "Allow"
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = [
         "ecs-tasks.amazonaws.com"
       ]

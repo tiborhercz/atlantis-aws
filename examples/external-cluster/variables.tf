@@ -1,21 +1,21 @@
 variable "name" {
   description = "Used to name the resources"
-  type = string
+  type        = string
 }
 
 variable "logs_kms_key_id" {
   description = "KMS key ID for CloudWatch Logs encryption"
-  type = string
+  type        = string
 }
 
 variable "ecs_task_cpu" {
   description = "CPU value for the ECS task"
-  type = string
+  type        = string
 }
 
 variable "ecs_task_memory" {
   description = "Memory value for the ECS task"
-  type = string
+  type        = string
 }
 
 # VPC

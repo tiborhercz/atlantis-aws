@@ -79,9 +79,9 @@ module "atlantis" {
 
   container_definitions = jsonencode([
     {
-      name         = var.name
-      image        = "ghcr.io/runatlantis/atlantis:v0.21.0"
-      essential    = true
+      name      = var.name
+      image     = "ghcr.io/runatlantis/atlantis:v0.21.0"
+      essential = true
       portMappings = [
         {
           containerPort = 80
@@ -90,7 +90,7 @@ module "atlantis" {
       ]
       logConfiguration = {
         logDriver = "awslogs"
-        options   = {
+        options = {
           "awslogs-group"         = aws_cloudwatch_log_group.atlantis_container.name
           "awslogs-region"        = local.region
           "awslogs-stream-prefix" = "ecs"
