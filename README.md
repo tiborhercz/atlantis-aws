@@ -1,5 +1,16 @@
 # Terraform AWS ECS cluster for Atlantis
 
+AWS ECS cluster for running the Atlantis application.
+
+## About Atlantis
+
+[Atlantis](https://www.runatlantis.io/guide/) is an application for automating Terraform via pull requests. It is deployed as a standalone application into your infrastructure.
+
+Atlantis listens for GitHub, GitLab or Bitbucket webhooks about Terraform pull requests. It then runs `terraform plan` and comments with the output back on the pull request.
+
+When you want to apply, comment `atlantis apply` on the pull request and Atlantis will run `terraform apply` and comment back with the output.
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
