@@ -70,7 +70,6 @@ resource "aws_iam_role" "ecs_task" {
 }
 ```
 
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
