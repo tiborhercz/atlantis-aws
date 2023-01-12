@@ -172,10 +172,10 @@ module "atlantis" {
         }
       ]
       environment = [
-        {"name": "ATLANTIS_GH_USER", "value": "test"},
-        {"name": "ATLANTIS_GH_TOKEN", "value": "test"},
-        {"name": "ATLANTIS_GH_WEBHOOK_SECRET", "value": "test"},
-        {"name": "ATLANTIS_REPO_ALLOWLIST", "value": "github.com/tiborhercz/*"},
+        { "name" : "ATLANTIS_GH_USER", "value" : "test" },
+        { "name" : "ATLANTIS_GH_TOKEN", "value" : "test" },
+        { "name" : "ATLANTIS_GH_WEBHOOK_SECRET", "value" : "test" },
+        { "name" : "ATLANTIS_REPO_ALLOWLIST", "value" : "github.com/tiborhercz/*" },
       ]
       logConfiguration = {
         logDriver = "awslogs"
