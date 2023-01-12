@@ -75,7 +75,8 @@ data "aws_iam_policy_document" "kms_key_policy" {
 resource "aws_cloudwatch_log_group" "atlantis" {
   name = "atlantis-ecs-logs"
 
-  kms_key_id = aws_kms_key.atlantis.arn
+  kms_key_id        = aws_kms_key.atlantis.arn
+  retention_in_days = 14
 }
 
 resource "aws_ecs_cluster" "atlantis" {

@@ -45,5 +45,6 @@ resource "aws_ecs_task_definition" "atlantis" {
 resource "aws_cloudwatch_log_group" "atlantis_container" {
   name = "${var.name}-container-logs"
 
-  kms_key_id = var.cloudwatch_logs_kms_key_id
+  kms_key_id        = var.cloudwatch_logs_kms_key_id
+  retention_in_days = 14
 }

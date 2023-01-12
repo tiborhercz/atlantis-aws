@@ -23,6 +23,7 @@ resource "aws_ecs_cluster" "atlantis" {
 resource "aws_cloudwatch_log_group" "atlantis" {
   count = var.create_ecs_cluster ? 1 : 0
 
-  name       = "${var.name}-ecs-logs"
-  kms_key_id = var.cloudwatch_logs_kms_key_id
+  name              = "${var.name}-ecs-logs"
+  kms_key_id        = var.cloudwatch_logs_kms_key_id
+  retention_in_days = 14
 }
