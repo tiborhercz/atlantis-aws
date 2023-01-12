@@ -6,7 +6,7 @@ variable "name" {
 variable "cloudwatch_logs_kms_key_id" {
   description = "KMS key ID for CloudWatch Logs encryption. If not set a KMS key will be created and used."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "ecs_task_cpu" {
@@ -25,6 +25,7 @@ variable "network_configuration" {
   type = object({
     vpc_id          = string,
     private_subnets = list(string),
+    public_subnets  = list(string),
   })
 }
 
@@ -55,11 +56,4 @@ variable "ecs_cluster_id" {
 variable "ecs_task_definition_role_arn" {
   description = "IAM role ARN used by the ECS task definition. (Currently) Both the execution role and task role are using the same role."
   type        = string
-  default     = ""
-}
-
-variable "container_cloudwatch_log_group_name" {
-  description = "Cloudwatch log group name used by the container definition"
-  type        = string
-  default     = ""
 }

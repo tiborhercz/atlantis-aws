@@ -1,6 +1,3 @@
-data "aws_region" "current" {}
-data "aws_caller_identity" "current" {}
-
 resource "aws_ecs_cluster_capacity_providers" "atlantis" {
   cluster_name = var.create_ecs_cluster ? aws_ecs_cluster.atlantis[0].name : var.ecs_cluster_name
 
@@ -17,7 +14,7 @@ resource "aws_ecs_service" "atlantis" {
   load_balancer {
     target_group_arn = aws_lb_target_group.atlantis.arn
     container_name   = var.name
-    container_port   = 80
+    container_port   = 4141
   }
 
   network_configuration {
