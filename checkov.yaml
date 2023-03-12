@@ -1,0 +1,8 @@
+directory: .
+compact: true
+quiet: true
+framework: terraform
+skip-check:
+  - CKV2_AWS_28 # Ensure public facing ALB are protected by WAF - Currently not relevant for this module
+  - CKV_AWS_150 # Ensure that Load Balancer has deletion protection enabled - Not relevant for this module because the infrastructure can easily be recreated and the availability of the Atlantis instance is not mission-critical
+  - CKV_AWS_7 # Ensure rotation for customer created CMKs is enabled

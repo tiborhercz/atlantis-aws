@@ -1,0 +1,27 @@
+name: Pre-commit
+
+on: [ pull_request ]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install terraform-docs
+        run: |
+          sudo curl -sLo /tmp/terraform-docs-linux-amd64.tar.gz $(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | jq -rc '.assets[] | select( .name | contains("linux-amd64")).browser_download_url')
+          sudo tar -C /tmp -xzf /tmp/terraform-docs-linux-amd64.tar.gz
+          sudo mv /tmp/terraform-docs /usr/local/bin/
+          sudo chmod 0755 /usr/local/bin/terraform-docs
+
+      - name: pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
