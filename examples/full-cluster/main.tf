@@ -16,7 +16,7 @@ module "vpc" {
   name = "atlantis"
 
   cidr            = "10.0.0.0/16"
-  azs             = ["eu-west-1a", "eu-west-1b"]
+  azs             = ["${local.region}a", "${local.region}b"]
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
 
@@ -27,6 +27,7 @@ module "atlantis" {
   source = "../../"
 
   name                         = "atlantis"
+  region                       = local.region
   ecs_task_cpu                 = "1024"
   ecs_task_memory              = "2048"
   ecs_task_definition_role_arn = aws_iam_role.ecs_task.arn
@@ -40,7 +41,7 @@ module "atlantis" {
 }
 
 resource "aws_kms_key" "atlantis" {
-  description = "atlantis-ecs-cluster"
+  description = "atlantis-ecs"
   policy      = data.aws_iam_policy_document.kms_key_policy.json
 }
 
@@ -126,6 +127,6 @@ resource "aws_iam_role_policy" "ecs_task_policy" {
 }
 
 resource "aws_iam_role" "ecs_task" {
-  name               = "atlantis-ecs_task"
+  name               = "atlantis-ecs"
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks.json
 }

@@ -1,3 +1,9 @@
+resource "aws_ecs_cluster_capacity_providers" "atlantis" {
+  cluster_name = var.create_ecs_cluster ? aws_ecs_cluster.atlantis[0].name : var.ecs_cluster_name
+
+  capacity_providers = ["FARGATE"]
+}
+
 resource "aws_ecs_cluster" "atlantis" {
   count = var.create_ecs_cluster ? 1 : 0
 
@@ -23,7 +29,7 @@ resource "aws_ecs_cluster" "atlantis" {
 resource "aws_cloudwatch_log_group" "atlantis" {
   count = var.create_ecs_cluster ? 1 : 0
 
-  name              = "${var.name}-ecs-logs"
+  name              = "${var.name}-ecs"
   kms_key_id        = var.cloudwatch_logs_kms_key_id
   retention_in_days = 14
 }

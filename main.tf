@@ -1,11 +1,5 @@
-resource "aws_ecs_cluster_capacity_providers" "atlantis" {
-  cluster_name = var.create_ecs_cluster ? aws_ecs_cluster.atlantis[0].name : var.ecs_cluster_name
-
-  capacity_providers = ["FARGATE"]
-}
-
 resource "aws_ecs_service" "atlantis" {
-  name            = "${var.name}-service"
+  name            = var.name
   cluster         = var.create_ecs_cluster ? aws_ecs_cluster.atlantis[0].id : var.ecs_cluster_id
   task_definition = aws_ecs_task_definition.atlantis.arn
   desired_count   = 1

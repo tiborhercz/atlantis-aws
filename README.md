@@ -17,8 +17,8 @@ When you want to apply, comment `atlantis apply` on the pull request and Atlanti
 When using this module it is expected that you bring your own task role.
 This can be provided to the module with the `ecs_task_definition_role_arn` variable.
 
-It should have `sts:AssumeRole` Allow with service `ecs-tasks.amazonaws.com`.
-The role should also be able to the following actions on the CloudWatch group:
+The role should be able to be assumed by the `ecs-tasks.amazonaws.com` service.
+The role should allow the following actions on the CloudWatch group:
 - `logs:CreateLogGroup`
 - `logs:CreateLogStream`
 - `logs:PutLogEvents`
@@ -112,16 +112,19 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_cloudwatch_container_logs_retention_in_days"></a> [cloudwatch\_container\_logs\_retention\_in\_days](#input\_cloudwatch\_container\_logs\_retention\_in\_days) | The Cloudwatch container logs retention in days | `number` | `90` | no |
 | <a name="input_cloudwatch_logs_kms_key_id"></a> [cloudwatch\_logs\_kms\_key\_id](#input\_cloudwatch\_logs\_kms\_key\_id) | KMS key ID for CloudWatch Logs encryption. If not set a KMS key will be created and used. | `string` | `null` | no |
-| <a name="input_container_definitions"></a> [container\_definitions](#input\_container\_definitions) | A list of valid JSON container definitions. By default, a standard definition is used. | `string` | `""` | no |
+| <a name="input_container_definitions"></a> [container\_definitions](#input\_container\_definitions) | A list of valid JSON container definitions. By default, the standard definition is used which can be found in 'task-definition.tf' as a locals named default\_container\_definitions. | `string` | `null` | no |
 | <a name="input_create_ecs_cluster"></a> [create\_ecs\_cluster](#input\_create\_ecs\_cluster) | Set whether an ECS cluster should be created | `bool` | `true` | no |
 | <a name="input_ecs_cluster_id"></a> [ecs\_cluster\_id](#input\_ecs\_cluster\_id) | ID of a self provisioned ECS cluster. Only needs to be set if 'create\_ecs\_cluster' is set to false | `string` | `""` | no |
 | <a name="input_ecs_cluster_name"></a> [ecs\_cluster\_name](#input\_ecs\_cluster\_name) | Name of a self provisioned ECS cluster. Only needs to be set if 'create\_ecs\_cluster' is set to false | `string` | `""` | no |
 | <a name="input_ecs_task_cpu"></a> [ecs\_task\_cpu](#input\_ecs\_task\_cpu) | CPU value for the ECS task | `string` | n/a | yes |
 | <a name="input_ecs_task_definition_role_arn"></a> [ecs\_task\_definition\_role\_arn](#input\_ecs\_task\_definition\_role\_arn) | IAM role ARN used by the ECS task definition. (Currently) Both the execution role and task role are using the same role. | `string` | n/a | yes |
 | <a name="input_ecs_task_memory"></a> [ecs\_task\_memory](#input\_ecs\_task\_memory) | Memory value for the ECS task | `string` | n/a | yes |
+| <a name="input_image"></a> [image](#input\_image) | Docker image. This is most often a reference to a container located in a container registry | `string` | `"ghcr.io/runatlantis/atlantis:latest"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Used to name the resources | `string` | n/a | yes |
 | <a name="input_network_configuration"></a> [network\_configuration](#input\_network\_configuration) | The network configuration for the VPC | <pre>object({<br>    vpc_id          = string,<br>    private_subnets = list(string),<br>    public_subnets  = list(string),<br>  })</pre> | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | Region that the resources should be deployed in | `any` | n/a | yes |
 
 ## Outputs
 

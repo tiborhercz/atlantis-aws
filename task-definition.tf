@@ -1,10 +1,10 @@
 locals {
-  default_container_definitions_used = var.container_definitions == "" ? true : false
+  default_container_definitions_used = var.container_definitions == null ? true : false
 
   default_container_definitions = local.default_container_definitions_used == true ? jsonencode([
     {
       name      = var.name
-      image     = "ghcr.io/runatlantis/atlantis:v0.21.0"
+      image     = var.image
       essential = true
       portMappings = [
         {
@@ -16,7 +16,7 @@ locals {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = aws_cloudwatch_log_group.atlantis_container.name
-          "awslogs-region"        = "eu-west-1"
+          "awslogs-region"        = var.region
           "awslogs-stream-prefix" = "ecs"
         }
       }
@@ -25,8 +25,7 @@ locals {
 }
 
 resource "aws_ecs_task_definition" "atlantis" {
-  family = "${var.name}-task"
-  # TODO: Make a separate role for the execution_role_arn
+  family                   = var.name
   execution_role_arn       = var.ecs_task_definition_role_arn
   task_role_arn            = var.ecs_task_definition_role_arn
   network_mode             = "awsvpc"
@@ -43,8 +42,8 @@ resource "aws_ecs_task_definition" "atlantis" {
 }
 
 resource "aws_cloudwatch_log_group" "atlantis_container" {
-  name = "${var.name}-container-logs"
+  name = "${var.name}-container"
 
   kms_key_id        = var.cloudwatch_logs_kms_key_id
-  retention_in_days = 14
+  retention_in_days = var.cloudwatch_container_logs_retention_in_days
 }
