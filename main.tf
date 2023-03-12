@@ -8,7 +8,7 @@ resource "aws_ecs_service" "atlantis" {
   load_balancer {
     target_group_arn = aws_lb_target_group.atlantis.arn
     container_name   = var.name
-    container_port   = 4141
+    container_port   = var.atlantis_port
   }
 
   network_configuration {

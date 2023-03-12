@@ -1,4 +1,12 @@
 locals {
+  environment_variables = [
+    for key, value in var.env_vars :
+    {
+      name  = key
+      value = value
+    }
+  ]
+
   default_container_definitions_used = var.container_definitions == null ? true : false
 
   default_container_definitions = local.default_container_definitions_used == true ? jsonencode([
@@ -8,10 +16,12 @@ locals {
       essential = true
       portMappings = [
         {
-          containerPort = 80
-          hostPort      = 80
+          containerPort = var.atlantis_port
+          hostPort      = var.atlantis_port
+          protocol      = "tcp"
         }
       ]
+      environment = local.environment_variables
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -33,7 +43,7 @@ resource "aws_ecs_task_definition" "atlantis" {
   cpu                      = var.ecs_task_cpu
   memory                   = var.ecs_task_memory
 
-  container_definitions = var.container_definitions == "" ? local.default_container_definitions : var.container_definitions
+  container_definitions = var.container_definitions == null ? local.default_container_definitions : var.container_definitions
 
   runtime_platform {
     operating_system_family = "LINUX"

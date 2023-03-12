@@ -39,9 +39,21 @@ variable "network_configuration" {
   })
 }
 
+variable "atlantis_port" {
+  description = "The port on which Atlantis will be exposed. Default is 4141"
+  type        = number
+  default     = 4141
+}
+
 variable "container_definitions" {
-  description = "A list of valid JSON container definitions. By default, the standard definition is used which can be found in 'task-definition.tf' as a locals named default_container_definitions."
+  description = "A list of valid JSON container definitions. By default, the default definition is used which can be found in 'task-definition.tf' as a locals named default_container_definitions."
   type        = string
+  default     = null
+}
+
+variable "env_vars" {
+  type        = map(any)
+  description = "Map of the environment variables provided to the Atlantis container. env_vars should only be used if you use the default definition, otherwise you should provide the Atlantis environment variables with your own container_definitions."
   default     = null
 }
 

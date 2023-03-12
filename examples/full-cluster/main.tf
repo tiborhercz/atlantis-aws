@@ -33,6 +33,13 @@ module "atlantis" {
   ecs_task_definition_role_arn = aws_iam_role.ecs_task.arn
   cloudwatch_logs_kms_key_id   = aws_kms_key.atlantis.arn
 
+  env_vars = {
+      ATLANTIS_GH_USER           = var.github_user
+      ATLANTIS_GH_TOKEN          = var.github_token
+      ATLANTIS_GH_WEBHOOK_SECRET = var.github_webhook_secret
+      ATLANTIS_REPO_ALLOWLIST    = var.github_repo_allow_list
+  }
+
   network_configuration = {
     vpc_id          = module.vpc.vpc_id
     private_subnets = module.vpc.private_subnets

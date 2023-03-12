@@ -10,7 +10,7 @@ resource "aws_lb" "atlantis" {
 resource "aws_lb_target_group" "atlantis" {
   name        = var.name
   vpc_id      = var.network_configuration.vpc_id
-  port        = 4141
+  port        = var.atlantis_port
   protocol    = "HTTP"
   target_type = "ip"
   health_check {
@@ -66,8 +66,8 @@ resource "aws_security_group" "atlantis_security_group" {
 resource "aws_security_group_rule" "atlantis_ingress_atlantis_port" {
   description       = "Allow traffic on the Atlantis port"
   type              = "ingress"
-  from_port         = 4141
-  to_port           = 4141
+  from_port         = var.atlantis_port
+  to_port           = var.atlantis_port
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.atlantis_security_group.id
